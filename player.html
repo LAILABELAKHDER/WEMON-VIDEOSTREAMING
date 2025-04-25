@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Player Dash.js</title>
+  <style>
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #1B98F5;     
+      --primary-hover: #197EC9;       
+      --bg-color: #f4f4f4;            
+      --container-bg: #fff;          
+      --card-bg: #fafafa;             
+      --card-border: #e3e3e3;
+      --text-color: #333;
+      --heading-color: #444;
+      --shadow-color: rgba(0,0,0,0.1);
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, var(--bg-color), #e9e9e9);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 20px auto;
+      padding: 20px;
+      background: var(--container-bg);
+      border-radius: 5px;
+      box-shadow: 0 0 10px var(--shadow-color);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    .video-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    video {
+      width: 100%;
+      max-width: 840px;
+      height: auto;
+      border: 3px solid var(--primary-color);
+      border-radius: 4px;
+      outline: none;
+      transition: box-shadow 0.3s ease;
+    }
+    
+    video:hover {
+      box-shadow: 0 0 10px var(--primary-color);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+
+    .metric-card {
+      background: var(--card-bg);
+      padding: 15px;
+      border: 1px solid var(--card-border);
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-align: center;
+    }
+    
+    .metric-card:hover {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
+    }
+
+    .metric-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--heading-color);
+    }
+
+    .metric-card p {
+      font-size: 1rem;
+      color: var(--text-color);
+    }
+    .metric-card p span {
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #777;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Player Dash.js</h1>
+    </header>
+
+    <div class="video-container">
+      <video id="videoPlayer" controls></video>
+    </div>
+
+    <section class="metrics" id="metrics">
+      <div class="metric-card">
+        <h3>Buffer Level</h3>
+        <p><span id="bufferLevel">-</span> sec</p>
+      </div>
+      <div class="metric-card">
+        <h3>Reported Bitrate</h3>
+        <p><span id="reportedBitrate">-</span> Kbps</p>
+      </div>
+      <div class="metric-card">
+        <h3>Resolution</h3>
+        <p><span id="resolution">-</span></p>
+      </div>
+      <div class="metric-card">
+        <h3>Frame Rate</h3>
+        <p><span id="framerate">-</span> fps</p>
+      </div>
+      <div class="metric-card">
+        <h3>Startup Time</h3>
+        <p><span id="startup">-</span> ms</p>
+      </div>
+      <div class="metric-card">
+        <h3>Re‑buffering Ratio</h3>
+        <p><span id="rebufferRatio">-</span>%</p>
+      </div>
+      <div class="metric-card">
+        <h3>Video Start Failure</h3>
+        <p><span id="videoStartFailure">-</span></p>
+      </div>
+      <div class="metric-card">
+        <h3>Weighted Average Bitrate</h3>
+        <p><span id="weightedAverage">-</span> Kbps</p>
+      </div>
+      <div class="metric-card">
+        <h3>Stall Count</h3>
+        <p><span id="stallCount">-</span></p>
+      </div>
+      <div class="metric-card">
+        <h3>Quality Switch Count</h3>
+        <p><span id="qualitySwitchCount">-</span></p>
+      </div>
+      <div class="metric-card" id="chrome-only">
+        <h3>Calculated Bitrate</h3>
+        <p><span id="calculatedBitrate">-</span> Kbps</p>
+      </div>
+    </section>
+
+    <div class="footer">
+      <p>&copy; 2025 Dash.js Demo. Tous droits réservés.</p>
+    </div>
+  </div>
+  <script src="http://cdn.dashjs.org/v3.1.0/dash.all.min.js"></script>
+  <script src="VideoMetricsjson.js"></script>
+</body>
+</html>
+
+
+
