@@ -1,0 +1,63 @@
+worker_processes auto;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    sendfile on;
+    tcp_nopush on;
+    directio 512;
+    default_type application/octet-stream;
+    gzip off;
+
+    server {
+        listen 10.0.0.2:80;
+        server_name 10.0.0.2;
+
+        # Root directory for all files
+        root /var/www/dash/video3/dash;
+
+        # Serve player.html
+        location /player.html {
+            add_header 'Cache-Control' 'no-cache';
+            add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length';
+
+            if ($request_method = 'OPTIONS') {
+                add_header 'Access-Control-Allow-Origin' '*';
+                add_header 'Access-Control-Max-Age' 1728000;
+                add_header 'Content-Type' 'text/plain charset=UTF-8';
+                add_header 'Content-Length' 0;
+                return 204;
+            }
+
+            try_files $uri =404;
+        }
+
+        # Serve video files (.mpd and .m4s)
+        location / {
+            add_header 'Cache-Control' 'no-cache';
+            add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length';
+
+            if ($request_method = 'OPTIONS') {
+                add_header 'Access-Control-Allow-Origin' '*';
+                add_header 'Access-Control-Max-Age' 1728000;
+                add_header 'Content-Type' 'text/plain charset=UTF-8';
+                add_header 'Content-Length' 0;
+                return 204;
+            }
+
+            # Define MIME types for DASH files
+            types {
+                application/dash+xml mpd;
+                video/mp4 m4s;
+                text/html html;
+                application/javascript js;
+            }
+
+            try_files $uri =404;
+        }
+    }
+}
